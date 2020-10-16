@@ -32,13 +32,35 @@ public class App {
             return "Hello: " + request.params(":name");
         });
 
-        post("/otro", (request, response) -> {
+        get("/queryparms", (request, response) -> {
+            return "Hello: " + request.queryParams("Prtemail");
+        });
+
+        post("/json", (request, response) -> {
             JsonParser parser = new JsonParser();
             JsonElement arbol = parser.parse(request.body());
             JsonObject peticion = arbol.getAsJsonObject();
 
             System.out.println("prm: " + peticion.get("PrtEmail"));
             System.out.println("prm: " + peticion.get("PrtPassword"));
+            return "algo";
+        });
+
+        post("/formdata", (request, response) -> {
+            // JsonParser parser = new JsonParser();
+            // JsonElement arbol = parser.parse(request.body());
+            // JsonObject peticion = arbol.getAsJsonObject();
+
+            /* 
+            *  tener cuidado de usar request.body antes de request.queryParams o viceversa
+            *  debido a que el framework consume el contenido al momento de usarlo
+            */
+            System.out.println("prm1: " + request.queryParams("Prtemail"));
+            System.out.println("prm2: " + request.queryParams("Prtpassword"));
+
+            System.out.println("prm: " + request.body() );
+            System.out.println("prm: " + request.contentType() );
+
             return "algo";
         });
     }
