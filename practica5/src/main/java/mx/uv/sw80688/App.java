@@ -37,6 +37,8 @@ public class App {
         });
 
         post("/json", (request, response) -> {
+            // Ojo: el nombre de los atributos enviados en json es diferente al nombre
+            // enviado con URLSearchParams, es decir los parámetros son sensibles al caso
             JsonParser parser = new JsonParser();
             JsonElement arbol = parser.parse(request.body());
             JsonObject peticion = arbol.getAsJsonObject();
